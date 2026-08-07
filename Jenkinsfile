@@ -42,7 +42,7 @@ pipeline {
                       - name: kaniko
                         image: gcr.io/kaniko-project/executor:latest
                         args:
-                        - "--context=https://github.com/$GITHUB_USER/example-voting-app.git#refs/heads/$BRANCH"
+                        - "--context=git://github.com/$GITHUB_USER/example-voting-app.git#refs/heads/$BRANCH"
                         - "--context-sub-path=vote"
                         - "--destination=$DOCKER_HUB_USER/vote:v1"
                         volumeMounts:
