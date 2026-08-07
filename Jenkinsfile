@@ -12,7 +12,7 @@ pipeline {
         sh 'chmod +x ./kubectl'
       }
     }
-    stage{'Deploy to k3d') {
+    stage('Deploy to k3d') {
       steps {
         sh "./kubectl apply -f k8s-specifications/'
       }
