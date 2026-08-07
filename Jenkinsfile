@@ -14,7 +14,7 @@ pipeline {
     }
     stage('Deploy to k3d') {
       steps {
-        sh "./kubectl apply -f k8s-specifications/'
+        sh './kubectl apply -f k8s-specifications/'
       }
     }
   }
