@@ -6,10 +6,15 @@ pipeline {
         checkout scm
       }
     }
-    stage('Test Connection') {
+    stage('Setup Tools') {
       steps {
-        echo 'Успех! Jenkins получил доступ к репозиторю.'
-        sh 'ls -la'
+        sh 'curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"'
+        sh 'chmod +x ./kubectl'
+      }
+    }
+    stage{'Deploy to k3d') {
+      steps {
+        sh "./kubectl apply -f k8s-specifications/'
       }
     }
   }
