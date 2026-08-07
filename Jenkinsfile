@@ -56,7 +56,8 @@ pipeline {
                           items:
                             - key: .dockerconfigjson
                               path: config.json
-                EOF
+EOF
+
                 ./kubectl delete job kaniko-build-vote --ignore-not-found
                 ./kubectl apply -f kaniko-vote.yaml
                 
