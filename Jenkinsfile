@@ -5,9 +5,9 @@ pipeline {
         DOCKER_CREDS = credentials('dockerhub-credentials')
         
         // === ЗАМЕНИТЕ ЭТИ ДАННЫЕ НА СВОИ ===
-        DOCKER_HUB_USER = "ваш_логин_docker_hub"
-        GITHUB_USER = "ваш_логин_github"
-        BRANCH = "master" 
+        DOCKER_HUB_USER = "sufuratokun"
+        GITHUB_USER = "Sufuratokun"
+        BRANCH = "main" 
     }
     stages {
         stage('Setup Kubectl') {
@@ -18,7 +18,6 @@ pipeline {
         }
         stage('Create K8s Secret') {
             steps {
-                // Передаем ключи от Docker Hub внутрь кластера
                 sh '''
                 ./kubectl delete secret docker-cred --ignore-not-found
                 ./kubectl create secret docker-registry docker-cred \
@@ -30,7 +29,6 @@ pipeline {
         }
         stage('Build & Push Vote (Kaniko)') {
             steps {
-                // Генерируем манифест временной задачи (Job) и запускаем сборку
                 sh '''
                 cat <<EOF > kaniko-vote.yaml
                 apiVersion: batch/v1
@@ -69,7 +67,6 @@ pipeline {
         }
         stage('Deploy to k3d') {
             steps {
-                // Деплоим старые манифесты, чтобы пайплайн просто успешно завершился
                 sh './kubectl apply -f k8s-specifications/'
             }
         }
